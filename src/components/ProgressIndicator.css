@@ -1,7 +1,7 @@
 .progress {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   width: 100%;
 }
 
@@ -11,69 +11,42 @@
   justify-content: space-between;
 }
 
-.progress__label {
-  color: var(--muted);
-}
+.progress__label { color: var(--muted); }
 
 .progress__counter {
-  font-family: var(--font-mono);
-  font-size: var(--step-0);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--step-2);
   color: var(--ink);
-  letter-spacing: 0.02em;
+  letter-spacing: -0.02em;
 }
 
 .progress__current {
-  font-weight: 500;
+  color: var(--se-deep);
 }
 
 .progress__divider {
-  margin: 0 6px;
+  margin: 0 4px;
   color: var(--muted);
 }
 
-.progress__total {
-  color: var(--muted);
-}
+.progress__total { color: var(--muted); }
 
 .progress__track {
   position: relative;
-  height: 2px;
+  height: 4px;
   background: var(--line);
   border-radius: 999px;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .progress__fill {
   position: absolute;
   inset: 0;
-  background: var(--ink);
-  border-radius: 999px;
+  background: linear-gradient(90deg, var(--se-deep), var(--cs-deep));
+  border-radius: inherit;
   transform-origin: left;
   transition: transform var(--dur-slow) var(--ease);
 }
 
-.progress__ticks {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none;
-}
-
-.progress__tick {
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  transform: translateY(-2px);
-  transition:
-    background var(--dur) var(--ease),
-    border-color var(--dur) var(--ease),
-    transform var(--dur) var(--ease);
-}
-
-.progress__tick.is-active {
-  background: var(--ink);
-  border-color: var(--ink);
-}
+.progress__ticks { display: none; }

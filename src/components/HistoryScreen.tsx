@@ -21,130 +21,154 @@ export function HistoryScreen({
   const isEmpty = tests.length === 0;
 
   return (
-    <section className="history">
-      <header className="history__header">
-        <p className="eyebrow history__eyebrow">
+    <section className="bento h">
+      <article
+        className="cell cell--c4 cell--r2 h__hero"
+        style={{ animationDelay: '0ms' }}
+      >
+        <div className="h__hero-bg" aria-hidden="true">
+          <span className="h__orb h__orb--1" />
+          <span className="h__orb h__orb--2" />
+        </div>
+
+        <p className="eyebrow h__eyebrow">
           <button
             type="button"
-            className="link-back history__back"
+            className="link-back h__back"
             onClick={onBack}
           >
             <span aria-hidden="true">←</span>
             <span>На головну</span>
           </button>
-          <span className="history__sep" aria-hidden="true">
-            ·
-          </span>
+          <span className="h__sep" aria-hidden="true">·</span>
           <span>Сесія цього вікна</span>
         </p>
 
-        <div className="history__title-row">
-          <h1 className="history__title">
-            Пройдені <span className="italic">тести</span>
-            <span className="history__period">.</span>
-          </h1>
-          <span className="history__count" aria-live="polite">
-            {String(tests.length).padStart(2, '0')}
-          </span>
-        </div>
+        <h1 className="h__title">
+          Пройдені <span className="italic">тести</span>
+          <span className="h__period">.</span>
+        </h1>
 
-        <p className="history__lede">
+        <p className="h__lede">
           Список твоїх проходжень у цьому вікні браузера. Можеш відкрити
           будь-який результат знову або запустити нове опитування.
         </p>
-      </header>
+
+        <div className="h__hero-actions">
+          <button type="button" className="btn" onClick={onStartNew}>
+            <span>Нове опитування</span>
+            <span className="btn__arrow" aria-hidden="true">→</span>
+          </button>
+          {!isEmpty && (
+            <button
+              type="button"
+              className="link-danger"
+              onClick={onClear}
+            >
+              Очистити історію
+            </button>
+          )}
+        </div>
+      </article>
+
+      <article
+        className="cell cell--c2 h__count"
+        style={{ animationDelay: '60ms' }}
+      >
+        <p className="eyebrow">Усього</p>
+        <p className="h__count-num">{String(tests.length).padStart(2, '0')}</p>
+        <p className="h__count-label italic">
+          {tests.length === 0
+            ? 'жодного проходження'
+            : tests.length === 1
+              ? 'проходження в сесії'
+              : 'проходжень у сесії'}
+        </p>
+      </article>
+
+      <article
+        className="cell cell--c2 h__legend"
+        style={{ animationDelay: '120ms' }}
+      >
+        <p className="eyebrow">Кольори</p>
+        <ul className="legend">
+          <li className="legend__item">
+            <span className="legend__sw" style={{ background: 'linear-gradient(135deg, var(--se-from), var(--se-to))' }} />
+            <span>SE</span>
+          </li>
+          <li className="legend__item">
+            <span className="legend__sw" style={{ background: 'linear-gradient(135deg, var(--cs-from), var(--cs-to))' }} />
+            <span>CS</span>
+          </li>
+          <li className="legend__item">
+            <span className="legend__sw" style={{ background: 'linear-gradient(135deg, var(--ce-from), var(--ce-to))' }} />
+            <span>CE</span>
+          </li>
+        </ul>
+      </article>
 
       {isEmpty ? (
-        <div className="history__empty">
-          <p className="history__empty-title">
+        <article
+          className="cell cell--c6 h__empty"
+          style={{ animationDelay: '200ms' }}
+        >
+          <p className="h__empty-title">
             Ще <span className="italic">жодного</span> проходження.
           </p>
-          <p className="history__empty-text">
+          <p className="h__empty-text">
             Заверши опитування — і воно з’явиться тут.
           </p>
-          <button
-            type="button"
-            className="btn btn--primary"
-            onClick={onStartNew}
-          >
-            <span>Почати опитування</span>
-            <span className="btn__arrow" aria-hidden="true">
-              →
-            </span>
-          </button>
-        </div>
+        </article>
       ) : (
-        <ul className="history__list">
-          {tests.map((test, i) => {
-            const primary = SPECIALTIES[test.primary];
-            const isTie = test.ties.length > 1;
-            return (
-              <li
-                key={test.id}
-                className="history__item"
-                style={{
-                  ['--accent' as string]: `var(${primary.accentVar})`,
-                }}
+        tests.map((test, i) => {
+          const primary = SPECIALTIES[test.primary];
+          const isTie = test.ties.length > 1;
+          return (
+            <article
+              key={test.id}
+              className={`cell cell--c2 h__test h__test--${primary.id}`}
+              style={{
+                animationDelay: `${200 + i * 70}ms`,
+                ['--accent-deep' as string]: `var(--${primary.id}-deep)`,
+                ['--accent-from' as string]: `var(--${primary.id}-from)`,
+                ['--accent-to' as string]: `var(--${primary.id}-to)`,
+              }}
+            >
+              <div className="h__test-bg" aria-hidden="true" />
+              <button
+                type="button"
+                className="h__test-btn"
+                onClick={() => onView(test)}
               >
-                <button
-                  type="button"
-                  className="history__btn"
-                  onClick={() => onView(test)}
-                >
-                  <span className="history__num">
-                    {String(tests.length - i).padStart(2, '0')}
+                <span className="h__test-num">
+                  {String(tests.length - i).padStart(2, '0')}
+                </span>
+                <span className="h__test-when">
+                  {formatCompletedAt(test.completedAt)}
+                </span>
+                <span className="h__test-name">
+                  {isTie ? (
+                    <span className="italic">збіг кількох напрямів</span>
+                  ) : (
+                    <span className="italic">{primary.name}</span>
+                  )}
+                </span>
+                {isTie && (
+                  <span className="h__test-ties">
+                    {test.ties
+                      .map((id) => SPECIALTIES[id].englishName)
+                      .join(' / ')}
                   </span>
-                  <span className="history__body">
-                    <span className="history__when">
-                      {formatCompletedAt(test.completedAt)}
-                    </span>
-                    <span className="history__name">
-                      {isTie ? (
-                        <>
-                          <span className="italic">збіг кількох напрямів</span>
-                          <span className="history__tie-list">
-                            {' · '}
-                            {test.ties
-                              .map((id) => SPECIALTIES[id].englishName)
-                              .join(' / ')}
-                          </span>
-                        </>
-                      ) : (
-                        <span className="italic">{primary.name}</span>
-                      )}
-                    </span>
-                  </span>
-                  <span className="history__arrow" aria-hidden="true">
-                    →
-                  </span>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+                )}
+                <span className="h__test-foot">
+                  <span>відкрити</span>
+                  <span className="h__test-arrow" aria-hidden="true">→</span>
+                </span>
+              </button>
+            </article>
+          );
+        })
       )}
-
-      <footer className="history__footer">
-        <button
-          type="button"
-          className="btn btn--primary"
-          onClick={onStartNew}
-        >
-          <span>Нове опитування</span>
-          <span className="btn__arrow" aria-hidden="true">
-            →
-          </span>
-        </button>
-        {!isEmpty && (
-          <button
-            type="button"
-            className="link-danger"
-            onClick={onClear}
-          >
-            Очистити історію
-          </button>
-        )}
-      </footer>
     </section>
   );
 }

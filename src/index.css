@@ -1,58 +1,84 @@
 :root {
-  /* Палітра — тепло-паперова, із трьома акцентами для спеціальностей */
-  --paper: #f5f1e8;
-  --paper-2: #efeadd;
-  --surface: #fbf8f1;
-  --ink: #1a1714;
-  --ink-2: #3a3530;
-  --muted: #8a8278;
-  --line: #ddd5c4;
-  --line-soft: #e8e1d0;
+  /* === Soft Gradient Minimalism palette === */
+  --bg: #f7f3ec;          /* warm cream */
+  --bg-2: #f1ece1;        /* slightly darker */
+  --surface: #ffffff;     /* card */
+  --surface-2: #fbf8f1;   /* tinted card */
+  --ink: #1a1814;
+  --ink-2: #4a443d;
+  --muted: #9a9286;
+  --line: rgba(26, 24, 20, 0.07);
+  --line-strong: rgba(26, 24, 20, 0.12);
 
-  /* Кольори-ідентифікатори спеціальностей */
-  --se: #c2410c;       /* Software Engineering — теракота */
+  /* Specialty gradient tokens (soft, low-chroma pastels) */
+  --se-from: #ffe9d8;
+  --se-to:   #ffc098;
+  --se-deep: #b73e10;
   --se-soft: #fde7d7;
-  --cs: #3730a3;       /* Computer Science — індиго */
+
+  --cs-from: #ece8ff;
+  --cs-to:   #c5bbff;
+  --cs-deep: #4f3bc9;
   --cs-soft: #e2dffb;
-  --ce: #166534;       /* Computer Engineering — глибокий ліс */
+
+  --ce-from: #e3f1e7;
+  --ce-to:   #b1d8bd;
+  --ce-deep: #2f7349;
   --ce-soft: #dcefdf;
 
-  /* Активний акцент перемикається на екрані результату */
   --accent: var(--ink);
-  --accent-soft: var(--paper-2);
+  --accent-soft: var(--bg-2);
 
-  /* Типографіка */
-  --font-display: 'Fraunces', 'Times New Roman', serif;
+  /* Decorative orb tints */
+  --orb-peach:   rgba(255, 200, 165, 0.55);
+  --orb-laven:   rgba(210, 200, 255, 0.45);
+  --orb-mint:    rgba(180, 220, 195, 0.45);
+  --orb-cream:   rgba(255, 235, 200, 0.35);
+
+  /* Type system */
+  --font-display: 'Instrument Serif', 'Times New Roman', serif;
   --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  /* Розмірна шкала */
-  --step--1: clamp(0.78rem, 0.76rem + 0.1vw, 0.84rem);
-  --step-0: clamp(0.94rem, 0.9rem + 0.2vw, 1.05rem);
-  --step-1: clamp(1.1rem, 1.04rem + 0.3vw, 1.25rem);
-  --step-2: clamp(1.4rem, 1.28rem + 0.6vw, 1.7rem);
-  --step-3: clamp(1.85rem, 1.6rem + 1.2vw, 2.4rem);
-  --step-4: clamp(2.6rem, 2.1rem + 2.5vw, 4rem);
-  --step-5: clamp(3.5rem, 2.6rem + 4.5vw, 6.5rem);
+  /* Type scale */
+  --step--2: clamp(0.7rem, 0.66rem + 0.1vw, 0.76rem);
+  --step--1: clamp(0.78rem, 0.74rem + 0.15vw, 0.86rem);
+  --step-0:  clamp(0.94rem, 0.9rem + 0.2vw, 1.05rem);
+  --step-1:  clamp(1.1rem, 1.04rem + 0.3vw, 1.25rem);
+  --step-2:  clamp(1.4rem, 1.28rem + 0.6vw, 1.7rem);
+  --step-3:  clamp(1.85rem, 1.55rem + 1.4vw, 2.6rem);
+  --step-4:  clamp(2.6rem, 2rem + 3vw, 4.4rem);
+  --step-5:  clamp(3.4rem, 2.4rem + 5vw, 7rem);
 
-  /* Радіуси та простір */
-  --r-sm: 6px;
-  --r-md: 12px;
-  --r-lg: 20px;
+  /* Bento + radii */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+  --bento-gap: clamp(12px, 1.5vw, 20px);
 
-  /* Рух */
+  /* Shadows */
+  --shadow-card: 0 1px 0 rgba(26, 24, 20, 0.02),
+                 0 6px 24px -16px rgba(26, 24, 20, 0.08);
+  --shadow-lift: 0 4px 0 rgba(26, 24, 20, 0.02),
+                 0 24px 48px -24px rgba(26, 24, 20, 0.18);
+
+  /* Motion */
   --ease: cubic-bezier(0.32, 0.72, 0.24, 1);
+  --ease-spring: cubic-bezier(0.16, 1.1, 0.3, 1);
   --dur-fast: 180ms;
   --dur: 320ms;
   --dur-slow: 600ms;
 
   color-scheme: light;
   color: var(--ink);
-  background: var(--paper);
+  background: var(--bg);
 
   font-family: var(--font-sans);
   font-size: var(--step-0);
   line-height: 1.55;
+  font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -73,36 +99,48 @@ body {
 
 body {
   min-height: 100svh;
-  /* Тонкий «паперовий» фон: радіальний градієнт + дотовий патерн */
-  background:
-    radial-gradient(
-      80% 60% at 75% -10%,
-      rgba(194, 65, 12, 0.06),
-      transparent 60%
-    ),
-    radial-gradient(
-      70% 50% at -10% 110%,
-      rgba(55, 48, 163, 0.05),
-      transparent 60%
-    ),
-    var(--paper);
   position: relative;
   overflow-x: hidden;
+  background: var(--bg);
 }
 
+/* Soft mesh gradient — pastel orbs that drift behind everything */
 body::before {
   content: '';
   position: fixed;
+  inset: -10%;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(40% 35% at 12% 8%, var(--orb-peach), transparent 70%),
+    radial-gradient(38% 32% at 88% 18%, var(--orb-laven), transparent 70%),
+    radial-gradient(45% 40% at 78% 92%, var(--orb-mint), transparent 70%),
+    radial-gradient(38% 35% at 18% 86%, var(--orb-cream), transparent 70%);
+  filter: blur(20px) saturate(0.95);
+  animation: drift 24s var(--ease) infinite alternate;
+}
+
+@keyframes drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1);   }
+  50%  { transform: translate3d(-2%, 1%, 0) scale(1.03); }
+  100% { transform: translate3d(2%, -1%, 0) scale(1.01); }
+}
+
+/* Fine grain overlay for texture */
+body::after {
+  content: '';
+  position: fixed;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
   background-image: radial-gradient(
     circle,
-    rgba(26, 23, 20, 0.045) 1px,
+    rgba(26, 24, 20, 0.03) 1px,
     transparent 1px
   );
-  background-size: 22px 22px;
-  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
-  z-index: 0;
+  background-size: 18px 18px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  opacity: 0.6;
 }
 
 #root {
@@ -113,50 +151,26 @@ body::before {
   flex-direction: column;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 380;
-  font-variation-settings: 'opsz' 144;
+  font-weight: 400;
   color: var(--ink);
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   margin: 0;
-  line-height: 1.05;
+  line-height: 1;
 }
 
-h1 {
-  font-size: var(--step-5);
-  font-weight: 360;
-}
+h1 { font-size: var(--step-5); }
+h2 { font-size: var(--step-3); letter-spacing: -0.018em; }
+h3 { font-size: var(--step-2); letter-spacing: -0.015em; }
 
-h2 {
-  font-size: var(--step-3);
-}
+p { margin: 0; }
+button { font: inherit; cursor: pointer; }
+a { color: inherit; }
 
-h3 {
-  font-size: var(--step-2);
-  letter-spacing: -0.01em;
-}
+::selection { background: var(--ink); color: var(--bg); }
 
-p {
-  margin: 0;
-}
-
-button {
-  font: inherit;
-  cursor: pointer;
-}
-
-a {
-  color: inherit;
-}
-
-::selection {
-  background: var(--ink);
-  color: var(--paper);
-}
-
+/* === Reusable utilities === */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: var(--step--1);
@@ -168,8 +182,121 @@ a {
 
 .italic {
   font-style: italic;
-  font-variation-settings: 'opsz' 144, 'SOFT' 100;
 }
+
+/* === Bento grid === */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--bento-gap);
+  width: 100%;
+}
+
+.cell {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: clamp(20px, 2.4vw, 32px);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+.cell--soft {
+  background: var(--surface-2);
+}
+
+.cell--ink {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+/* Bento spans (mobile-first: every cell is full width by default) */
+.cell--c1 { grid-column: span 6; }
+.cell--c2 { grid-column: span 6; }
+.cell--c3 { grid-column: span 6; }
+.cell--c4 { grid-column: span 6; }
+.cell--c6 { grid-column: span 6; }
+
+@media (min-width: 720px) {
+  .cell--c1 { grid-column: span 3; }
+  .cell--c2 { grid-column: span 3; }
+  .cell--c3 { grid-column: span 6; }
+  .cell--c4 { grid-column: span 6; }
+}
+
+@media (min-width: 1024px) {
+  .cell--c1 { grid-column: span 1; }
+  .cell--c2 { grid-column: span 2; }
+  .cell--c3 { grid-column: span 3; }
+  .cell--c4 { grid-column: span 4; }
+  .cell--c6 { grid-column: span 6; }
+}
+
+.cell--r2 {
+  grid-row: span 1;
+}
+@media (min-width: 1024px) {
+  .cell--r2 { grid-row: span 2; }
+}
+
+/* === Universal soft buttons === */
+.btn {
+  appearance: none;
+  border: none;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--step-0);
+  padding: 16px 26px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition:
+    background var(--dur) var(--ease),
+    transform var(--dur) var(--ease-spring),
+    box-shadow var(--dur) var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  background: #2a241e;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -16px rgba(26, 24, 20, 0.4);
+}
+
+.btn:active { transform: translateY(0); }
+.btn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.btn--ghost {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+
+.btn--ghost:hover {
+  background: var(--surface-2);
+  border-color: var(--ink);
+}
+
+.btn__arrow {
+  display: inline-block;
+  transition: transform var(--dur) var(--ease);
+}
+
+.btn:hover .btn__arrow { transform: translateX(4px); }
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -178,4 +305,5 @@ a {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+  body::before { animation: none; }
 }

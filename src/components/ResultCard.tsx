@@ -24,194 +24,216 @@ export function ResultCard({
 
   return (
     <section
-      className="result"
+      className={`bento r r--${primary.id}`}
       style={{
         ['--accent' as string]: `var(${primary.accentVar})`,
         ['--accent-soft' as string]: `var(${primary.accentSoftVar})`,
+        ['--accent-deep' as string]: `var(--${primary.id}-deep)`,
+        ['--accent-from' as string]: `var(--${primary.id}-from)`,
+        ['--accent-to' as string]: `var(--${primary.id}-to)`,
       }}
     >
-      <header className="result__hero">
-        <p className="eyebrow result__kicker">
-          <span className="result__pulse" aria-hidden="true" />
+      {/* === Hero (4x2) === */}
+      <article
+        className="cell cell--c4 cell--r2 r__hero"
+        style={{ animationDelay: '0ms' }}
+      >
+        <div className="r__hero-bg" aria-hidden="true">
+          <span className="r__orb r__orb--1" />
+          <span className="r__orb r__orb--2" />
+        </div>
+
+        <p className="eyebrow r__kicker">
+          <span className="r__pulse" aria-hidden="true" />
           {isTie ? 'Кілька напрямів збіглися' : 'Тобі може підійти'}
-          {origin === 'history' && (
-            <>
-              <span className="result__kicker-sep" aria-hidden="true">
-                ·
-              </span>
-              <span className="result__kicker-tag">з історії</span>
-            </>
-          )}
-          {origin === 'fresh' && (
-            <>
-              <span className="result__kicker-sep" aria-hidden="true">
-                ·
-              </span>
-              <span className="result__kicker-tag">збережено в сесії</span>
-            </>
-          )}
+          <span className="r__kicker-sep" aria-hidden="true">·</span>
+          <span className="r__kicker-tag">
+            {origin === 'history' ? 'з історії' : 'збережено в сесії'}
+          </span>
         </p>
 
-        <h1 className="result__title">
+        <h1 className="r__title">
           {isTie ? (
             <>
               Зацікавлення вказують
               <br />
               <span className="italic">на кілька напрямів</span>
-              <span className="result__period">.</span>
+              <span className="r__period">.</span>
             </>
           ) : (
             <>
               <span className="italic">{primary.name.split(' ')[0]}</span>
               <br />
               {primary.name.split(' ').slice(1).join(' ')}
-              <span className="result__period">.</span>
+              <span className="r__period">.</span>
             </>
           )}
         </h1>
 
-        <p className="result__tagline">{primary.tagline}</p>
-      </header>
+        <p className="r__tagline">{primary.tagline}</p>
+      </article>
 
-      <div className="result__grid">
-        <article className="result__main">
-          <p className="eyebrow result__section-label">Чому це може підійти</p>
-          <p className="result__description">{primary.description}</p>
-
-          <p className="eyebrow result__section-label result__section-label--mt">
-            Що ти будеш вивчати
-          </p>
-          <ul className="result__topics">
-            {primary.studyTopics.map((topic, i) => (
+      {/* === Scores card (2x1) === */}
+      <article
+        className="cell cell--c2 r__scores"
+        style={{ animationDelay: '80ms' }}
+      >
+        <p className="eyebrow">Розподіл балів</p>
+        <ul className="scores">
+          {SPECIALTY_ORDER.map((id) => {
+            const s = SPECIALTIES[id];
+            const value = result.scores[id];
+            const pct = Math.round((value / total) * 100);
+            const isWinner = result.ties.includes(id);
+            return (
               <li
-                key={topic}
-                className="result__topic"
-                style={{ animationDelay: `${i * 60 + 200}ms` }}
+                key={id}
+                className={`score ${isWinner ? 'is-winner' : ''}`}
+                style={{
+                  ['--row-deep' as string]: `var(--${id}-deep)`,
+                  ['--row-from' as string]: `var(--${id}-from)`,
+                  ['--row-to' as string]: `var(--${id}-to)`,
+                }}
               >
-                <span className="result__topic-num">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span>{topic}</span>
+                <div className="score__top">
+                  <span className="score__name">{s.englishName}</span>
+                  <span className="score__pct">{pct}%</span>
+                </div>
+                <div className="score__bar">
+                  <div
+                    className="score__fill"
+                    style={{ transform: `scaleX(${value / total})` }}
+                  />
+                </div>
               </li>
-            ))}
-          </ul>
+            );
+          })}
+        </ul>
+      </article>
 
-          <a
-            className="result__link"
-            href={primary.departmentUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            <span className="result__link-meta">
-              <span className="eyebrow">Сторінка кафедри</span>
-              <span className="result__link-name">{primary.departmentName}</span>
-            </span>
-            <span className="result__link-arrow" aria-hidden="true">
-              ↗
-            </span>
-          </a>
-        </article>
+      {/* === Department link (2x1) === */}
+      <a
+        className="cell cell--c2 cell--ink r__link"
+        href={primary.departmentUrl}
+        target="_blank"
+        rel="noreferrer noopener"
+        style={{ animationDelay: '160ms' }}
+      >
+        <p className="eyebrow r__link-kicker">Сторінка кафедри</p>
+        <p className="r__link-name italic">{primary.departmentName}</p>
+        <span className="r__link-foot">
+          <span>kisit.kneu.edu.ua</span>
+          <span className="r__link-arrow" aria-hidden="true">↗</span>
+        </span>
+      </a>
 
-        <aside className="result__side">
-          <p className="eyebrow result__section-label">Розподіл балів</p>
-          <ul className="result__scores">
-            {SPECIALTY_ORDER.map((id) => {
-              const s = SPECIALTIES[id];
-              const value = result.scores[id];
-              const pct = Math.round((value / total) * 100);
-              const isWinner = result.ties.includes(id);
-              return (
-                <li
-                  key={id}
-                  className={`score ${isWinner ? 'is-winner' : ''}`}
-                  style={{
-                    ['--row-accent' as string]: `var(${s.accentVar})`,
-                  }}
-                >
-                  <div className="score__top">
-                    <span className="score__name">{s.name}</span>
-                    <span className="score__pct">{pct}%</span>
-                  </div>
-                  <div className="score__bar">
-                    <div
-                      className="score__fill"
-                      style={{ transform: `scaleX(${value / total})` }}
-                    />
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+      {/* === Description (3x1) === */}
+      <article
+        className="cell cell--c3 r__desc"
+        style={{ animationDelay: '220ms' }}
+      >
+        <p className="eyebrow">Чому це може підійти</p>
+        <p className="r__desc-text">{primary.description}</p>
+      </article>
 
-          {isTie && (
-            <div className="result__tie">
-              <p className="eyebrow result__section-label">Близькі напрями</p>
-              <p className="result__tie-text">
-                Тебе можуть зацікавити одразу:
-                <br />
-                {tieSpecialties.map((s, i) => (
-                  <span key={s.id}>
-                    <span className="italic">{s.name}</span>
-                    {i < tieSpecialties.length - 1 ? ', ' : ''}
-                  </span>
-                ))}
-                . Глянь на обидві кафедри та обирай те, що ближче.
-              </p>
-              <ul className="result__tie-links">
-                {tieSpecialties.map((s) => (
-                  <li key={s.id}>
-                    <a
-                      href={s.departmentUrl}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className="result__tie-link"
-                      style={{
-                        ['--row-accent' as string]: `var(${s.accentVar})`,
-                      }}
-                    >
-                      <span>{s.englishName}</span>
-                      <span aria-hidden="true">↗</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </aside>
-      </div>
-
-      <section className="result__careers" aria-labelledby="careers-title">
-        <header className="result__careers-head">
-          <p className="eyebrow result__section-label">Куди далі</p>
-          <h2 className="result__careers-title" id="careers-title">
-            Ким ти зможеш <span className="italic">працювати</span>
-            <span className="result__careers-period">.</span>
-          </h2>
-          <p className="result__careers-lede">
-            Приклади ролей, у яких найчастіше починають кар’єру випускники
-            цього напряму. Це орієнтир, а не вичерпний список.
-          </p>
-        </header>
-
-        <ul className="career-grid">
-          {primary.careerPaths.map((path, i) => (
+      {/* === Topics (3x1) === */}
+      <article
+        className="cell cell--c3 r__topics"
+        style={{ animationDelay: '280ms' }}
+      >
+        <p className="eyebrow">Що ти будеш вивчати</p>
+        <ul className="topics">
+          {primary.studyTopics.map((topic, i) => (
             <li
-              key={path.title}
-              className="career"
-              style={{ animationDelay: `${i * 80 + 200}ms` }}
+              key={topic}
+              className="topic"
+              style={{ animationDelay: `${i * 50 + 320}ms` }}
             >
-              <span className="career__num">
+              <span className="topic__num">
                 {String(i + 1).padStart(2, '0')}
               </span>
-              <h3 className="career__title">{path.title}</h3>
-              <p className="career__desc">{path.description}</p>
+              <span>{topic}</span>
             </li>
           ))}
         </ul>
-      </section>
+      </article>
 
-      <footer className="result__footer">
-        <div className="result__actions">
+      {/* === Careers section header (full) === */}
+      <header
+        className="cell cell--c6 r__careers-head"
+        style={{ animationDelay: '340ms' }}
+      >
+        <p className="eyebrow">Куди далі</p>
+        <h2 className="r__careers-title">
+          Ким ти зможеш <span className="italic">працювати</span>
+          <span className="r__careers-period">.</span>
+        </h2>
+        <p className="r__careers-lede">
+          Приклади ролей, у яких найчастіше починають кар’єру випускники цього
+          напряму. Це орієнтир, а не вичерпний список.
+        </p>
+      </header>
+
+      {/* === Career cards (3x1 each, 2 per row) === */}
+      {primary.careerPaths.map((path, i) => (
+        <article
+          key={path.title}
+          className="cell cell--c3 career"
+          style={{ animationDelay: `${380 + i * 60}ms` }}
+        >
+          <div className="career__bg" aria-hidden="true" />
+          <span className="career__num">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <h3 className="career__title italic">{path.title}</h3>
+          <p className="career__desc">{path.description}</p>
+        </article>
+      ))}
+
+      {/* === Tie info (full, when applicable) === */}
+      {isTie && (
+        <article
+          className="cell cell--c6 r__tie"
+          style={{ animationDelay: '420ms' }}
+        >
+          <p className="eyebrow">Близькі напрями</p>
+          <p className="r__tie-text">
+            Тебе можуть зацікавити одразу:{' '}
+            {tieSpecialties.map((s, i) => (
+              <span key={s.id}>
+                <span className="italic">{s.name}</span>
+                {i < tieSpecialties.length - 1 ? ', ' : ''}
+              </span>
+            ))}
+            . Глянь на обидві кафедри та обирай те, що ближче.
+          </p>
+          <ul className="r__tie-links">
+            {tieSpecialties.map((s) => (
+              <li key={s.id}>
+                <a
+                  href={s.departmentUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="r__tie-link"
+                  style={{
+                    ['--row-deep' as string]: `var(--${s.id}-deep)`,
+                  }}
+                >
+                  <span>{s.englishName}</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </article>
+      )}
+
+      {/* === Footer cell (full) === */}
+      <footer
+        className="cell cell--c6 cell--soft r__footer"
+        style={{ animationDelay: '460ms' }}
+      >
+        <div className="r__actions">
           <button type="button" className="btn btn--ghost" onClick={onRestart}>
             <span aria-hidden="true">↺</span>
             <span>Пройти ще раз</span>
@@ -219,13 +241,13 @@ export function ResultCard({
           {completedCount > 0 && (
             <button
               type="button"
-              className="result__history-link"
+              className="r__history-link"
               onClick={onOpenHistory}
             >
-              <span className="result__history-count">
+              <span className="r__history-count">
                 {String(completedCount).padStart(2, '0')}
               </span>
-              <span className="result__history-text">
+              <span className="r__history-text italic">
                 {completedCount === 1
                   ? 'проходження в історії'
                   : 'проходжень в історії'}
@@ -234,8 +256,8 @@ export function ResultCard({
             </button>
           )}
         </div>
-        <p className="eyebrow result__disclaimer">
-          результат — рекомендація, а не вирок · обери те, що відгукується
+        <p className="r__disclaimer">
+          результат — рекомендація, а не вирок
         </p>
       </footer>
     </section>

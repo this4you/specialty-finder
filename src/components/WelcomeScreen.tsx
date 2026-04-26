@@ -8,99 +8,117 @@ interface Props {
   onOpenHistory: () => void;
 }
 
+const STEPS = [
+  { num: '01', label: 'Дай чесні відповіді' },
+  { num: '02', label: 'Ми порахуємо бали' },
+  { num: '03', label: 'Підкажемо напрям' },
+];
+
 export function WelcomeScreen({
   onStart,
   completedCount,
   onOpenHistory,
 }: Props) {
   return (
-    <section className="welcome">
-      <header className="welcome__hero">
-        <p className="eyebrow welcome__eyebrow">
-          <span className="welcome__dot" aria-hidden="true" />
-          Коротке опитування · {QUESTIONS.length} питань · ~2 хв
-        </p>
-
-        <h1 className="welcome__title">
-          Знайди свою <span className="italic">IT-спеціальність</span>
-          <span className="welcome__period">.</span>
-        </h1>
-      </header>
-
-      <div className="welcome__body">
-        <div className="welcome__copy">
-          <p className="welcome__lede">
-            Ми поставимо кілька запитань про твої інтереси й уподобання — і
-            підкажемо, який напрям <em>може</em> підійти найкраще. Це не іспит:
-            чесні відповіді важливіші за «правильні».
-          </p>
-
-          <div className="welcome__cta">
-            <button
-              className="btn btn--primary"
-              onClick={onStart}
-              type="button"
-            >
-              <span>
-                {completedCount > 0 ? 'Пройти ще раз' : 'Почати опитування'}
-              </span>
-              <span className="btn__arrow" aria-hidden="true">
-                →
-              </span>
-            </button>
-            {completedCount > 0 ? (
-              <button
-                type="button"
-                className="welcome__history-link"
-                onClick={onOpenHistory}
-              >
-                <span className="welcome__history-count">
-                  {String(completedCount).padStart(2, '0')}
-                </span>
-                <span className="welcome__history-text">
-                  {completedCount === 1
-                    ? 'попереднє проходження'
-                    : 'попередні проходження'}
-                </span>
-                <span className="welcome__history-arrow" aria-hidden="true">
-                  →
-                </span>
-              </button>
-            ) : (
-              <span className="welcome__hint eyebrow">
-                без реєстрації · анонімно
-              </span>
-            )}
-          </div>
+    <section className="bento welcome">
+      <article
+        className="cell cell--c6 hero"
+        style={{ animationDelay: '0ms' }}
+      >
+        <div className="hero__bg" aria-hidden="true">
+          <span className="hero__orb hero__orb--1" />
+          <span className="hero__orb hero__orb--2" />
         </div>
 
-        <aside className="welcome__pane" aria-label="Спеціальності">
-          <p className="eyebrow welcome__pane-title">
-            На вибір <span className="welcome__index">03</span>
+        <p className="eyebrow hero__eyebrow">
+          <span className="hero__dot" aria-hidden="true" />
+          {QUESTIONS.length} питань · ≈ 2 хв · без реєстрації
+        </p>
+
+        <h1 className="hero__title">
+          Знайди свою <span className="italic">IT-спеціальність</span>
+          <span className="hero__period">.</span>
+        </h1>
+
+        <p className="hero__lede">
+          Кілька запитань про твої інтереси — і ми підкажемо, який напрям{' '}
+          <em>може</em> підійти найкраще. Це не іспит: чесні відповіді
+          важливіші за «правильні».
+        </p>
+
+        <div className="hero__cta">
+          <button className="btn" onClick={onStart} type="button">
+            <span>
+              {completedCount > 0 ? 'Пройти ще раз' : 'Почати опитування'}
+            </span>
+            <span className="btn__arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+      </article>
+
+      <article
+        className="cell cell--c3 process"
+        style={{ animationDelay: '60ms' }}
+      >
+        <p className="eyebrow">Як це працює</p>
+        <ol className="process__list">
+          {STEPS.map((s) => (
+            <li key={s.num} className="process__item">
+              <span className="process__num">{s.num}</span>
+              <span className="process__label">{s.label}</span>
+            </li>
+          ))}
+        </ol>
+      </article>
+
+      <article
+        className={`cell cell--c3 history ${completedCount > 0 ? 'history--filled' : 'history--empty'}`}
+        style={{ animationDelay: '120ms' }}
+      >
+        <p className="eyebrow">Твої проходження</p>
+        {completedCount > 0 ? (
+          <button
+            type="button"
+            className="history__btn"
+            onClick={onOpenHistory}
+          >
+            <span className="history__count">
+              {String(completedCount).padStart(2, '0')}
+            </span>
+            <span className="history__meta">
+              <span className="history__label">
+                {completedCount === 1 ? 'результат у сесії' : 'результати в сесії'}
+              </span>
+              <span className="history__arrow" aria-hidden="true">→</span>
+            </span>
+          </button>
+        ) : (
+          <p className="history__empty">
+            Тут <span className="italic">з’являться</span> твої результати
+            після першого проходження.
           </p>
-          <ul className="welcome__list">
-            {SPECIALTY_ORDER.map((id, i) => {
-              const s = SPECIALTIES[id];
-              return (
-                <li
-                  key={id}
-                  className="welcome__item"
-                  style={{
-                    ['--accent' as string]: `var(${s.accentVar})`,
-                    ['--accent-soft' as string]: `var(${s.accentSoftVar})`,
-                  }}
-                >
-                  <span className="welcome__num">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span className="welcome__name">{s.name}</span>
-                  <span className="welcome__en">{s.englishName}</span>
-                </li>
-              );
-            })}
-          </ul>
-        </aside>
-      </div>
+        )}
+      </article>
+
+      {SPECIALTY_ORDER.map((id, i) => {
+        const s = SPECIALTIES[id];
+        return (
+          <article
+            key={id}
+            className={`cell cell--c2 spec spec--${id}`}
+            style={{ animationDelay: `${180 + i * 80}ms` }}
+          >
+            <div className="spec__bg" aria-hidden="true" />
+            <p className="spec__num">
+              {String(i + 1).padStart(2, '0')}
+              <span className="spec__num-of"> / 03</span>
+            </p>
+            <h3 className="spec__name">{s.name}</h3>
+            <p className="spec__en">{s.englishName}</p>
+            <p className="spec__tag">{s.tagline}</p>
+          </article>
+        );
+      })}
     </section>
   );
 }

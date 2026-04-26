@@ -27,60 +27,62 @@ export function QuestionCard({
   }, [question.id]);
 
   return (
-    <section className="question" key={question.id}>
-      <ProgressIndicator current={index + 1} total={total} />
-
-      <div className="question__body">
-        <p className="eyebrow question__eyebrow">
-          <span className="question__num">
-            {String(index + 1).padStart(2, '0')}
-          </span>
-          <span className="question__divider" aria-hidden="true">
-            ·
-          </span>
-          <span>з {String(total).padStart(2, '0')}</span>
+    <section className="bento q" key={question.id}>
+      <article className="cell cell--c4 q__hero">
+        <p className="eyebrow q__eyebrow">
+          <span className="q__num">{String(index + 1).padStart(2, '0')}</span>
+          <span className="q__sep" aria-hidden="true">/</span>
+          <span className="q__total">{String(total).padStart(2, '0')}</span>
+          {question.helper && (
+            <>
+              <span className="q__dot" aria-hidden="true">·</span>
+              <span className="q__helper">{question.helper}</span>
+            </>
+          )}
         </p>
 
         <h2
-          className="question__prompt"
+          className="q__prompt"
           ref={headingRef}
           tabIndex={-1}
         >
           {question.prompt}
         </h2>
+      </article>
 
-        {question.helper && (
-          <p className="question__helper">{question.helper}</p>
-        )}
+      <article className="cell cell--c2 q__progress">
+        <ProgressIndicator current={index + 1} total={total} />
+        <p className="q__progress-hint">
+          <span className="italic">Спочатку</span> — інстинкт.{' '}
+          <span className="italic">Потім</span> — логіка.
+        </p>
+      </article>
 
-        <ul className="question__options" role="radiogroup" aria-label={question.prompt}>
-          {question.options.map((opt, i) => {
-            const isSelected = selectedOptionId === opt.id;
-            return (
-              <li key={opt.id}>
-                <button
-                  type="button"
-                  className={`option ${isSelected ? 'is-selected' : ''}`}
-                  role="radio"
-                  aria-checked={isSelected}
-                  onClick={() => onSelect(opt.id)}
-                  style={{ animationDelay: `${i * 60}ms` }}
-                >
-                  <span className="option__key" aria-hidden="true">
-                    {String.fromCharCode(65 + i)}
-                  </span>
-                  <span className="option__label">{opt.label}</span>
-                  <span className="option__chev" aria-hidden="true">
-                    →
-                  </span>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <ul className="q__options" role="radiogroup" aria-label={question.prompt}>
+        {question.options.map((opt, i) => {
+          const isSelected = selectedOptionId === opt.id;
+          return (
+            <li key={opt.id} className="q__option-wrap">
+              <button
+                type="button"
+                className={`option ${isSelected ? 'is-selected' : ''}`}
+                role="radio"
+                aria-checked={isSelected}
+                onClick={() => onSelect(opt.id)}
+                style={{ animationDelay: `${i * 80 + 100}ms` }}
+              >
+                <span className="option__key" aria-hidden="true">
+                  {String.fromCharCode(65 + i)}
+                </span>
+                <span className="option__label">{opt.label}</span>
+                <span className="option__chev" aria-hidden="true">→</span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
 
-      <div className="question__nav">
+      <div className="q__nav cell cell--c6 cell--soft">
         <button
           type="button"
           className="link-back"
@@ -90,7 +92,7 @@ export function QuestionCard({
           <span aria-hidden="true">←</span>
           <span>Назад</span>
         </button>
-        <span className="eyebrow question__hint">оберіть одну відповідь</span>
+        <span className="eyebrow q__hint">оберіть одну відповідь</span>
       </div>
     </section>
   );
