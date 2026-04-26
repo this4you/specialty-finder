@@ -70,66 +70,6 @@ export function WelcomeScreen({
         </div>
       </article>
 
-      {/* === Process card === */}
-      <article
-        className="cell cell--c2 process"
-        style={{ animationDelay: '80ms' }}
-      >
-        <p className="eyebrow">Як це працює</p>
-        <ol className="process__list">
-          {[
-            { num: '01', label: 'Дай чесні відповіді' },
-            { num: '02', label: 'Ми порахуємо бали' },
-            { num: '03', label: 'Покажемо напрям' },
-          ].map((s) => (
-            <li key={s.num} className="process__item">
-              <span className="process__num">{s.num}</span>
-              <span className="process__label">{s.label}</span>
-            </li>
-          ))}
-        </ol>
-      </article>
-
-      {/* === Stats card === */}
-      <article
-        className="cell cell--c2 stats"
-        style={{ animationDelay: '140ms' }}
-      >
-        <p className="eyebrow">У цифрах</p>
-        <div className="stats__grid">
-          <div className="stats__item">
-            <span className="stats__num gradient-text">
-              {String(QUESTIONS.length).padStart(2, '0')}
-            </span>
-            <span className="stats__label">питань усього</span>
-          </div>
-          <div className="stats__item">
-            <span className="stats__num gradient-text">03</span>
-            <span className="stats__label">напрями на вибір</span>
-          </div>
-          <div className="stats__item">
-            <span className="stats__num gradient-text">~2′</span>
-            <span className="stats__label">часу на проходження</span>
-          </div>
-        </div>
-      </article>
-
-      {/* === Privacy mini card === */}
-      <article
-        className="cell cell--c2 privacy"
-        style={{ animationDelay: '200ms' }}
-      >
-        <p className="eyebrow">Приватність</p>
-        <p className="privacy__text">
-          Дані <span className="italic">не виходять</span> із цього вікна.
-          Без реєстрації, без cookies, без збору інформації.
-        </p>
-        <div className="privacy__badges">
-          <span className="badge">100% локально</span>
-          <span className="badge">анонімно</span>
-        </div>
-      </article>
-
       {/* === Specialty cards === */}
       {SPECIALTY_ORDER.map((id, i) => {
         const s = SPECIALTIES[id];
@@ -137,7 +77,7 @@ export function WelcomeScreen({
           <article
             key={id}
             className={`cell cell--c2 spec spec--${id}`}
-            style={{ animationDelay: `${260 + i * 80}ms` }}
+            style={{ animationDelay: `${100 + i * 80}ms` }}
           >
             <div className="spec__bg" aria-hidden="true" />
             <div className="spec__glow" aria-hidden="true" />

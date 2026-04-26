@@ -60,7 +60,7 @@
   50%      { box-shadow: 0 0 0 12px transparent, 0 0 24px var(--accent-from); }
 }
 
-.r__kicker-sep { color: rgba(255, 255, 255, 0.2); }
+.r__kicker-sep { color: rgba(20, 17, 13, 0.2); }
 
 .r__kicker-tag {
   font-weight: 500;
@@ -179,7 +179,7 @@
 .score__bar {
   position: relative;
   height: 4px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(20, 17, 13, 0.08);
   border-radius: 999px;
   overflow: hidden;
 }

@@ -1,45 +1,45 @@
 :root {
-  /* === Modern SaaS dark base === */
-  --bg: #06061a;
-  --bg-2: #0a0a26;
-  --bg-3: #0e0e30;
+  /* === Modern SaaS light base === */
+  --bg: #f6f2ea;
+  --bg-2: #efeadb;
+  --bg-3: #e8e1ce;
 
-  /* Glass surfaces */
-  --glass: rgba(255, 255, 255, 0.04);
-  --glass-2: rgba(255, 255, 255, 0.06);
-  --glass-strong: rgba(255, 255, 255, 0.09);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-strong: rgba(255, 255, 255, 0.16);
+  /* Glass surfaces (frosted white on cream paper) */
+  --glass: rgba(255, 255, 255, 0.45);
+  --glass-2: rgba(255, 255, 255, 0.6);
+  --glass-strong: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(20, 17, 13, 0.06);
+  --glass-border-strong: rgba(20, 17, 13, 0.14);
 
-  /* Ink (light on dark) */
-  --ink: #ffffff;
-  --ink-2: #d6d6e6;
-  --ink-3: #a8a8c0;
-  --muted: #7a7a96;
-  --line: rgba(255, 255, 255, 0.06);
+  /* Ink (dark on light) */
+  --ink: #14110d;
+  --ink-2: #3a342b;
+  --ink-3: #6b6358;
+  --muted: #95897a;
+  --line: rgba(20, 17, 13, 0.08);
 
-  /* Aurora orb tints */
-  --orb-magenta: #ff3d8a;
+  /* Aurora orb tints — kept saturated for brand pop, but more transparent on light */
+  --orb-magenta: #ff4d8a;
   --orb-purple:  #7c5cff;
-  --orb-cyan:    #38d4ff;
-  --orb-emerald: #2ee0a1;
-  --orb-amber:   #ffb84d;
+  --orb-cyan:    #38b8ff;
+  --orb-emerald: #2ed09a;
+  --orb-amber:   #ffa84d;
 
-  /* Specialty gradient identities — vibrant for dark theme */
+  /* Specialty gradient identities */
   --se-from: #ff5e8a;
   --se-mid:  #ff8b5a;
   --se-to:   #ffb84d;
-  --se-glow: rgba(255, 94, 138, 0.4);
+  --se-glow: rgba(255, 94, 138, 0.32);
 
   --cs-from: #7c5cff;
   --cs-mid:  #5b9eff;
-  --cs-to:   #38d4ff;
-  --cs-glow: rgba(124, 92, 255, 0.4);
+  --cs-to:   #38c8ff;
+  --cs-glow: rgba(124, 92, 255, 0.32);
 
-  --ce-from: #2ee0a1;
-  --ce-mid:  #36c8c8;
-  --ce-to:   #38d4ff;
-  --ce-glow: rgba(46, 224, 161, 0.4);
+  --ce-from: #2ed09a;
+  --ce-mid:  #28b8b8;
+  --ce-to:   #38c8ff;
+  --ce-glow: rgba(46, 208, 154, 0.32);
 
   --accent: var(--ink);
 
@@ -65,13 +65,13 @@
   --bento-gap: clamp(12px, 1.4vw, 18px);
 
   --shadow-glass:
-    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-    0 24px 48px -24px rgba(0, 0, 0, 0.55),
-    0 0 64px -16px rgba(124, 92, 255, 0.12);
+    0 0 0 1px rgba(255, 255, 255, 0.55) inset,
+    0 14px 36px -16px rgba(20, 17, 13, 0.1),
+    0 0 64px -20px rgba(124, 92, 255, 0.12);
   --shadow-lift:
-    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-    0 32px 64px -24px rgba(0, 0, 0, 0.7),
-    0 0 100px -16px rgba(124, 92, 255, 0.25);
+    0 0 0 1px rgba(255, 255, 255, 0.7) inset,
+    0 28px 56px -20px rgba(20, 17, 13, 0.18),
+    0 0 100px -16px rgba(124, 92, 255, 0.22);
 
   --ease: cubic-bezier(0.32, 0.72, 0.24, 1);
   --ease-spring: cubic-bezier(0.16, 1.1, 0.3, 1);
@@ -79,7 +79,7 @@
   --dur: 320ms;
   --dur-slow: 600ms;
 
-  color-scheme: dark;
+  color-scheme: light;
   color: var(--ink);
   background: var(--bg);
 
@@ -103,7 +103,7 @@ body {
   background: var(--bg);
 }
 
-/* === Aurora background — large blurred color orbs === */
+/* === Aurora background — soft pastel orbs on cream paper === */
 body::before {
   content: '';
   position: fixed;
@@ -111,11 +111,11 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(38% 32% at 14% 10%, rgba(255, 61, 138, 0.32), transparent 70%),
-    radial-gradient(35% 30% at 86% 14%, rgba(56, 212, 255, 0.28), transparent 70%),
-    radial-gradient(40% 35% at 78% 88%, rgba(124, 92, 255, 0.32), transparent 70%),
-    radial-gradient(36% 32% at 18% 84%, rgba(46, 224, 161, 0.22), transparent 70%);
-  filter: blur(60px) saturate(140%);
+    radial-gradient(38% 32% at 14% 10%, rgba(255, 94, 138, 0.22), transparent 70%),
+    radial-gradient(35% 30% at 86% 14%, rgba(56, 184, 255, 0.18), transparent 70%),
+    radial-gradient(40% 35% at 78% 88%, rgba(124, 92, 255, 0.22), transparent 70%),
+    radial-gradient(36% 32% at 18% 84%, rgba(46, 208, 154, 0.16), transparent 70%);
+  filter: blur(70px) saturate(120%);
   animation: aurora 28s var(--ease) infinite alternate;
 }
 
@@ -125,19 +125,21 @@ body::before {
   100% { transform: translate3d(3%, -2%, 0) scale(1.04) rotate(-4deg); }
 }
 
-/* Star noise + scanline */
+/* Delicate ink dot grid for paper texture */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    radial-gradient(circle at 12% 20%, rgba(255,255,255,0.4) 0.5px, transparent 1px) 0 0/180px 180px,
-    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.35) 0.5px, transparent 1px) 0 0/240px 240px,
-    radial-gradient(circle at 30% 80%, rgba(255,255,255,0.3) 0.5px, transparent 1px) 0 0/210px 210px;
-  opacity: 0.6;
-  mix-blend-mode: screen;
+  background-image: radial-gradient(
+    circle,
+    rgba(20, 17, 13, 0.05) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  opacity: 0.55;
 }
 
 #root {
@@ -166,7 +168,7 @@ p { margin: 0; }
 button { font: inherit; cursor: pointer; }
 a { color: inherit; }
 
-::selection { background: var(--orb-purple); color: var(--ink); }
+::selection { background: var(--orb-purple); color: #ffffff; }
 
 /* === Utilities === */
 .eyebrow {
@@ -267,7 +269,7 @@ a { color: inherit; }
 .btn {
   appearance: none;
   border: none;
-  background: linear-gradient(135deg, var(--ink) 0%, #e0e0f0 100%);
+  background: linear-gradient(135deg, var(--ink) 0%, #2a2620 100%);
   color: var(--bg);
   font-family: var(--font-sans);
   font-weight: 600;
@@ -285,15 +287,15 @@ a { color: inherit; }
   overflow: hidden;
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-    0 8px 24px -8px rgba(255, 255, 255, 0.25),
-    0 0 60px -10px rgba(124, 92, 255, 0.5);
+    0 10px 24px -8px rgba(20, 17, 13, 0.25),
+    0 0 60px -10px rgba(124, 92, 255, 0.45);
 }
 
 .btn::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.18) 50%, transparent 70%);
   transform: translateX(-100%);
   transition: transform 800ms var(--ease);
   pointer-events: none;
@@ -302,9 +304,9 @@ a { color: inherit; }
 .btn:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-    0 12px 32px -8px rgba(255, 255, 255, 0.3),
-    0 0 80px -10px rgba(124, 92, 255, 0.7);
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+    0 14px 32px -8px rgba(20, 17, 13, 0.3),
+    0 0 80px -10px rgba(124, 92, 255, 0.6);
 }
 
 .btn:hover::before { transform: translateX(100%); }
@@ -324,8 +326,8 @@ a { color: inherit; }
 
 .btn--ghost:hover {
   background: var(--glass-strong);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 40px -8px rgba(124, 92, 255, 0.3);
+  border-color: rgba(20, 17, 13, 0.25);
+  box-shadow: 0 0 40px -8px rgba(124, 92, 255, 0.25);
 }
 
 .btn__arrow {

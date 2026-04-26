@@ -30,7 +30,7 @@ export function QuestionCard({
   return (
     <section className="bento q" key={question.id}>
       {/* === Progress + meta === */}
-      <article className="cell cell--c4 cell--strong q__hero">
+      <article className="cell cell--c6 cell--strong q__hero">
         <div className="q__meta">
           <span className="eyebrow q__meta-step">
             Питання · <span className="q__meta-step-num">{String(index + 1).padStart(2, '0')}</span>
@@ -61,18 +61,6 @@ export function QuestionCard({
         <h2 className="q__prompt" ref={headingRef} tabIndex={-1}>
           {question.prompt}
         </h2>
-      </article>
-
-      {/* === Side hint card === */}
-      <article className="cell cell--c2 q__tip">
-        <p className="eyebrow">Підказка</p>
-        <p className="q__tip-text">
-          <span className="italic">Спочатку</span> — інстинкт.{' '}
-          <span className="italic">Потім</span> — логіка.
-        </p>
-        <p className="q__tip-foot eyebrow">
-          Немає правильних відповідей
-        </p>
       </article>
 
       {/* === Options === */}
