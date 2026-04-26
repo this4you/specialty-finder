@@ -1,5 +1,6 @@
 import { SPECIALTIES, SPECIALTY_ORDER } from '../data/specialties';
 import type { ScoringResult } from '../logic/calculateResult';
+import { Compass } from './Compass';
 import './ResultCard.css';
 
 interface Props {
@@ -26,54 +27,61 @@ export function ResultCard({
     <section
       className={`bento r r--${primary.id}`}
       style={{
-        ['--accent' as string]: `var(${primary.accentVar})`,
-        ['--accent-soft' as string]: `var(${primary.accentSoftVar})`,
-        ['--accent-deep' as string]: `var(--${primary.id}-deep)`,
         ['--accent-from' as string]: `var(--${primary.id}-from)`,
+        ['--accent-mid' as string]: `var(--${primary.id}-mid)`,
         ['--accent-to' as string]: `var(--${primary.id}-to)`,
+        ['--accent-glow' as string]: `var(--${primary.id}-glow)`,
       }}
     >
-      {/* === Hero (4x2) === */}
+      {/* === Hero (4x2) — title + tagline + compass === */}
       <article
-        className="cell cell--c4 cell--r2 r__hero"
+        className="cell cell--c4 cell--r2 cell--strong r__hero"
         style={{ animationDelay: '0ms' }}
       >
-        <div className="r__hero-bg" aria-hidden="true">
-          <span className="r__orb r__orb--1" />
-          <span className="r__orb r__orb--2" />
+        <div className="r__hero-bg" aria-hidden="true" />
+
+        <div className="r__hero-content">
+          <p className="eyebrow r__kicker">
+            <span className="r__kicker-dot" aria-hidden="true" />
+            {isTie ? 'Кілька напрямів збіглися' : 'Тобі може підійти'}
+            <span className="r__kicker-sep" aria-hidden="true">·</span>
+            <span className="r__kicker-tag">
+              {origin === 'history' ? 'з історії' : 'збережено'}
+            </span>
+          </p>
+
+          <h1 className="r__title">
+            {isTie ? (
+              <>
+                Зацікавлення вказують
+                <br />
+                <span className="r__title-italic">на кілька напрямів</span>
+              </>
+            ) : (
+              <>
+                <span className="r__title-italic">
+                  {primary.name.split(' ')[0]}
+                </span>
+                <br />
+                {primary.name.split(' ').slice(1).join(' ')}
+              </>
+            )}
+          </h1>
+
+          <p className="r__tagline">{primary.tagline}</p>
         </div>
 
-        <p className="eyebrow r__kicker">
-          <span className="r__pulse" aria-hidden="true" />
-          {isTie ? 'Кілька напрямів збіглися' : 'Тобі може підійти'}
-          <span className="r__kicker-sep" aria-hidden="true">·</span>
-          <span className="r__kicker-tag">
-            {origin === 'history' ? 'з історії' : 'збережено в сесії'}
-          </span>
-        </p>
-
-        <h1 className="r__title">
-          {isTie ? (
-            <>
-              Зацікавлення вказують
-              <br />
-              <span className="italic">на кілька напрямів</span>
-              <span className="r__period">.</span>
-            </>
-          ) : (
-            <>
-              <span className="italic">{primary.name.split(' ')[0]}</span>
-              <br />
-              {primary.name.split(' ').slice(1).join(' ')}
-              <span className="r__period">.</span>
-            </>
-          )}
-        </h1>
-
-        <p className="r__tagline">{primary.tagline}</p>
+        <div className="r__compass">
+          <Compass
+            size={220}
+            pointTo={primary.id}
+            locked
+            showLabels={false}
+          />
+        </div>
       </article>
 
-      {/* === Scores card (2x1) === */}
+      {/* === Scores card === */}
       <article
         className="cell cell--c2 r__scores"
         style={{ animationDelay: '80ms' }}
@@ -88,12 +96,7 @@ export function ResultCard({
             return (
               <li
                 key={id}
-                className={`score ${isWinner ? 'is-winner' : ''}`}
-                style={{
-                  ['--row-deep' as string]: `var(--${id}-deep)`,
-                  ['--row-from' as string]: `var(--${id}-from)`,
-                  ['--row-to' as string]: `var(--${id}-to)`,
-                }}
+                className={`score score--${id} ${isWinner ? 'is-winner' : ''}`}
               >
                 <div className="score__top">
                   <span className="score__name">{s.englishName}</span>
@@ -111,14 +114,15 @@ export function ResultCard({
         </ul>
       </article>
 
-      {/* === Department link (2x1) === */}
+      {/* === Department link === */}
       <a
-        className="cell cell--c2 cell--ink r__link"
+        className="cell cell--c2 r__link"
         href={primary.departmentUrl}
         target="_blank"
         rel="noreferrer noopener"
         style={{ animationDelay: '160ms' }}
       >
+        <div className="r__link-bg" aria-hidden="true" />
         <p className="eyebrow r__link-kicker">Сторінка кафедри</p>
         <p className="r__link-name italic">{primary.departmentName}</p>
         <span className="r__link-foot">
@@ -127,7 +131,7 @@ export function ResultCard({
         </span>
       </a>
 
-      {/* === Description (3x1) === */}
+      {/* === Description === */}
       <article
         className="cell cell--c3 r__desc"
         style={{ animationDelay: '220ms' }}
@@ -136,7 +140,7 @@ export function ResultCard({
         <p className="r__desc-text">{primary.description}</p>
       </article>
 
-      {/* === Topics (3x1) === */}
+      {/* === Topics === */}
       <article
         className="cell cell--c3 r__topics"
         style={{ animationDelay: '280ms' }}
@@ -158,15 +162,15 @@ export function ResultCard({
         </ul>
       </article>
 
-      {/* === Careers section header (full) === */}
+      {/* === Careers section === */}
       <header
-        className="cell cell--c6 r__careers-head"
+        className="cell cell--c6 cell--bare r__careers-head"
         style={{ animationDelay: '340ms' }}
       >
         <p className="eyebrow">Куди далі</p>
         <h2 className="r__careers-title">
-          Ким ти зможеш <span className="italic">працювати</span>
-          <span className="r__careers-period">.</span>
+          Ким ти зможеш{' '}
+          <span className="r__careers-italic">працювати</span>
         </h2>
         <p className="r__careers-lede">
           Приклади ролей, у яких найчастіше починають кар’єру випускники цього
@@ -174,12 +178,11 @@ export function ResultCard({
         </p>
       </header>
 
-      {/* === Career cards (3x1 each, 2 per row) === */}
       {primary.careerPaths.map((path, i) => (
         <article
           key={path.title}
           className="cell cell--c3 career"
-          style={{ animationDelay: `${380 + i * 60}ms` }}
+          style={{ animationDelay: `${380 + i * 80}ms` }}
         >
           <div className="career__bg" aria-hidden="true" />
           <span className="career__num">
@@ -190,7 +193,7 @@ export function ResultCard({
         </article>
       ))}
 
-      {/* === Tie info (full, when applicable) === */}
+      {/* === Tie card === */}
       {isTie && (
         <article
           className="cell cell--c6 r__tie"
@@ -214,10 +217,7 @@ export function ResultCard({
                   href={s.departmentUrl}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="r__tie-link"
-                  style={{
-                    ['--row-deep' as string]: `var(--${s.id}-deep)`,
-                  }}
+                  className={`r__tie-link r__tie-link--${s.id}`}
                 >
                   <span>{s.englishName}</span>
                   <span aria-hidden="true">↗</span>
@@ -228,10 +228,10 @@ export function ResultCard({
         </article>
       )}
 
-      {/* === Footer cell (full) === */}
+      {/* === Footer === */}
       <footer
-        className="cell cell--c6 cell--soft r__footer"
-        style={{ animationDelay: '460ms' }}
+        className="cell cell--c6 r__footer"
+        style={{ animationDelay: '500ms' }}
       >
         <div className="r__actions">
           <button type="button" className="btn btn--ghost" onClick={onRestart}>

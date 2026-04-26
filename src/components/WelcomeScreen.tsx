@@ -1,5 +1,6 @@
 import { SPECIALTIES, SPECIALTY_ORDER } from '../data/specialties';
 import { QUESTIONS } from '../data/questions';
+import { Compass } from './Compass';
 import './WelcomeScreen.css';
 
 interface Props {
@@ -8,12 +9,6 @@ interface Props {
   onOpenHistory: () => void;
 }
 
-const STEPS = [
-  { num: '01', label: 'Дай чесні відповіді' },
-  { num: '02', label: 'Ми порахуємо бали' },
-  { num: '03', label: 'Підкажемо напрям' },
-];
-
 export function WelcomeScreen({
   onStart,
   completedCount,
@@ -21,48 +16,72 @@ export function WelcomeScreen({
 }: Props) {
   return (
     <section className="bento welcome">
+      {/* === HERO with embedded compass === */}
       <article
         className="cell cell--c6 hero"
         style={{ animationDelay: '0ms' }}
       >
-        <div className="hero__bg" aria-hidden="true">
-          <span className="hero__orb hero__orb--1" />
-          <span className="hero__orb hero__orb--2" />
+        <div className="hero__content">
+          <p className="eyebrow hero__eyebrow">
+            <span className="hero__eyebrow-dot" aria-hidden="true" />
+            <span>Career Compass</span>
+            <span className="hero__eyebrow-sep">·</span>
+            <span>{QUESTIONS.length} питань · 2 хв</span>
+          </p>
+
+          <h1 className="hero__title">
+            <span className="hero__title-line">Знайди свою</span>
+            <span className="hero__title-line">
+              <span className="gradient-text italic">IT-спеціальність</span>
+            </span>
+          </h1>
+
+          <p className="hero__lede">
+            Кілька запитань про твої інтереси — і компас покаже, який IT-напрям
+            у коледжі <em>може</em> бути твоїм. Без оцінок, без реєстрації,
+            без неправильних відповідей.
+          </p>
+
+          <div className="hero__cta">
+            <button className="btn" onClick={onStart} type="button">
+              <span>
+                {completedCount > 0 ? 'Пройти ще раз' : 'Почати опитування'}
+              </span>
+              <span className="btn__arrow" aria-hidden="true">→</span>
+            </button>
+            {completedCount > 0 && (
+              <button
+                type="button"
+                className="hero__history"
+                onClick={onOpenHistory}
+              >
+                <span className="hero__history-num">
+                  {String(completedCount).padStart(2, '0')}
+                </span>
+                <span>попередні проходження</span>
+                <span aria-hidden="true">→</span>
+              </button>
+            )}
+          </div>
         </div>
 
-        <p className="eyebrow hero__eyebrow">
-          <span className="hero__dot" aria-hidden="true" />
-          {QUESTIONS.length} питань · ≈ 2 хв · без реєстрації
-        </p>
-
-        <h1 className="hero__title">
-          Знайди свою <span className="italic">IT-спеціальність</span>
-          <span className="hero__period">.</span>
-        </h1>
-
-        <p className="hero__lede">
-          Кілька запитань про твої інтереси — і ми підкажемо, який напрям{' '}
-          <em>може</em> підійти найкраще. Це не іспит: чесні відповіді
-          важливіші за «правильні».
-        </p>
-
-        <div className="hero__cta">
-          <button className="btn" onClick={onStart} type="button">
-            <span>
-              {completedCount > 0 ? 'Пройти ще раз' : 'Почати опитування'}
-            </span>
-            <span className="btn__arrow" aria-hidden="true">→</span>
-          </button>
+        <div className="hero__compass">
+          <Compass size={380} />
         </div>
       </article>
 
+      {/* === Process card === */}
       <article
-        className="cell cell--c3 process"
-        style={{ animationDelay: '60ms' }}
+        className="cell cell--c2 process"
+        style={{ animationDelay: '80ms' }}
       >
         <p className="eyebrow">Як це працює</p>
         <ol className="process__list">
-          {STEPS.map((s) => (
+          {[
+            { num: '01', label: 'Дай чесні відповіді' },
+            { num: '02', label: 'Ми порахуємо бали' },
+            { num: '03', label: 'Покажемо напрям' },
+          ].map((s) => (
             <li key={s.num} className="process__item">
               <span className="process__num">{s.num}</span>
               <span className="process__label">{s.label}</span>
@@ -71,50 +90,70 @@ export function WelcomeScreen({
         </ol>
       </article>
 
+      {/* === Stats card === */}
       <article
-        className={`cell cell--c3 history ${completedCount > 0 ? 'history--filled' : 'history--empty'}`}
-        style={{ animationDelay: '120ms' }}
+        className="cell cell--c2 stats"
+        style={{ animationDelay: '140ms' }}
       >
-        <p className="eyebrow">Твої проходження</p>
-        {completedCount > 0 ? (
-          <button
-            type="button"
-            className="history__btn"
-            onClick={onOpenHistory}
-          >
-            <span className="history__count">
-              {String(completedCount).padStart(2, '0')}
+        <p className="eyebrow">У цифрах</p>
+        <div className="stats__grid">
+          <div className="stats__item">
+            <span className="stats__num gradient-text">
+              {String(QUESTIONS.length).padStart(2, '0')}
             </span>
-            <span className="history__meta">
-              <span className="history__label">
-                {completedCount === 1 ? 'результат у сесії' : 'результати в сесії'}
-              </span>
-              <span className="history__arrow" aria-hidden="true">→</span>
-            </span>
-          </button>
-        ) : (
-          <p className="history__empty">
-            Тут <span className="italic">з’являться</span> твої результати
-            після першого проходження.
-          </p>
-        )}
+            <span className="stats__label">питань усього</span>
+          </div>
+          <div className="stats__item">
+            <span className="stats__num gradient-text">03</span>
+            <span className="stats__label">напрями на вибір</span>
+          </div>
+          <div className="stats__item">
+            <span className="stats__num gradient-text">~2′</span>
+            <span className="stats__label">часу на проходження</span>
+          </div>
+        </div>
       </article>
 
+      {/* === Privacy mini card === */}
+      <article
+        className="cell cell--c2 privacy"
+        style={{ animationDelay: '200ms' }}
+      >
+        <p className="eyebrow">Приватність</p>
+        <p className="privacy__text">
+          Дані <span className="italic">не виходять</span> із цього вікна.
+          Без реєстрації, без cookies, без збору інформації.
+        </p>
+        <div className="privacy__badges">
+          <span className="badge">100% локально</span>
+          <span className="badge">анонімно</span>
+        </div>
+      </article>
+
+      {/* === Specialty cards === */}
       {SPECIALTY_ORDER.map((id, i) => {
         const s = SPECIALTIES[id];
         return (
           <article
             key={id}
             className={`cell cell--c2 spec spec--${id}`}
-            style={{ animationDelay: `${180 + i * 80}ms` }}
+            style={{ animationDelay: `${260 + i * 80}ms` }}
           >
             <div className="spec__bg" aria-hidden="true" />
-            <p className="spec__num">
-              {String(i + 1).padStart(2, '0')}
-              <span className="spec__num-of"> / 03</span>
-            </p>
-            <h3 className="spec__name">{s.name}</h3>
-            <p className="spec__en">{s.englishName}</p>
+            <div className="spec__glow" aria-hidden="true" />
+
+            <div className="spec__top">
+              <span className="spec__num">
+                {String(i + 1).padStart(2, '0')}
+                <span className="spec__num-of"> / 03</span>
+              </span>
+              <span className="spec__chip">
+                <span className="spec__chip-dot" />
+                {s.englishName}
+              </span>
+            </div>
+
+            <h3 className="spec__name italic">{s.name}</h3>
             <p className="spec__tag">{s.tagline}</p>
           </article>
         );

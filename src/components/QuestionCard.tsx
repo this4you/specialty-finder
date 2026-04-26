@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import type { Question } from '../types';
-import { ProgressIndicator } from './ProgressIndicator';
 import './QuestionCard.css';
 
 interface Props {
@@ -26,52 +25,73 @@ export function QuestionCard({
     headingRef.current?.focus();
   }, [question.id]);
 
+  const ratio = (index + 1) / total;
+
   return (
     <section className="bento q" key={question.id}>
-      <article className="cell cell--c4 q__hero">
-        <p className="eyebrow q__eyebrow">
-          <span className="q__num">{String(index + 1).padStart(2, '0')}</span>
-          <span className="q__sep" aria-hidden="true">/</span>
-          <span className="q__total">{String(total).padStart(2, '0')}</span>
+      {/* === Progress + meta === */}
+      <article className="cell cell--c4 cell--strong q__hero">
+        <div className="q__meta">
+          <span className="eyebrow q__meta-step">
+            Питання · <span className="q__meta-step-num">{String(index + 1).padStart(2, '0')}</span>
+            <span className="q__meta-of"> з {String(total).padStart(2, '0')}</span>
+          </span>
           {question.helper && (
-            <>
-              <span className="q__dot" aria-hidden="true">·</span>
-              <span className="q__helper">{question.helper}</span>
-            </>
+            <span className="q__helper italic">{question.helper}</span>
           )}
-        </p>
+        </div>
 
-        <h2
-          className="q__prompt"
-          ref={headingRef}
-          tabIndex={-1}
-        >
+        <div className="q__progress" aria-label={`Питання ${index + 1} з ${total}`}>
+          <div className="q__progress-track">
+            <div
+              className="q__progress-fill"
+              style={{ transform: `scaleX(${ratio})` }}
+            />
+          </div>
+          <div className="q__progress-dots">
+            {Array.from({ length: total }).map((_, i) => (
+              <span
+                key={i}
+                className={`q__dot ${i < index ? 'is-done' : i === index ? 'is-current' : ''}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        <h2 className="q__prompt" ref={headingRef} tabIndex={-1}>
           {question.prompt}
         </h2>
       </article>
 
-      <article className="cell cell--c2 q__progress">
-        <ProgressIndicator current={index + 1} total={total} />
-        <p className="q__progress-hint">
+      {/* === Side hint card === */}
+      <article className="cell cell--c2 q__tip">
+        <p className="eyebrow">Підказка</p>
+        <p className="q__tip-text">
           <span className="italic">Спочатку</span> — інстинкт.{' '}
           <span className="italic">Потім</span> — логіка.
         </p>
+        <p className="q__tip-foot eyebrow">
+          Немає правильних відповідей
+        </p>
       </article>
 
+      {/* === Options === */}
       <ul className="q__options" role="radiogroup" aria-label={question.prompt}>
         {question.options.map((opt, i) => {
           const isSelected = selectedOptionId === opt.id;
+          const accent = ['se', 'cs', 'ce'][i] ?? 'se';
           return (
             <li key={opt.id} className="q__option-wrap">
               <button
                 type="button"
-                className={`option ${isSelected ? 'is-selected' : ''}`}
+                className={`option option--${accent} ${isSelected ? 'is-selected' : ''}`}
                 role="radio"
                 aria-checked={isSelected}
                 onClick={() => onSelect(opt.id)}
-                style={{ animationDelay: `${i * 80 + 100}ms` }}
+                style={{ animationDelay: `${i * 90 + 100}ms` }}
               >
-                <span className="option__key" aria-hidden="true">
+                <div className="option__bg" aria-hidden="true" />
+                <span className="option__key">
                   {String.fromCharCode(65 + i)}
                 </span>
                 <span className="option__label">{opt.label}</span>
@@ -82,7 +102,8 @@ export function QuestionCard({
         })}
       </ul>
 
-      <div className="q__nav cell cell--c6 cell--soft">
+      {/* === Nav cell === */}
+      <div className="q__nav cell cell--c6">
         <button
           type="button"
           className="link-back"

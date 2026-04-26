@@ -1,46 +1,53 @@
 :root {
-  /* === Soft Gradient Minimalism palette === */
-  --bg: #f7f3ec;          /* warm cream */
-  --bg-2: #f1ece1;        /* slightly darker */
-  --surface: #ffffff;     /* card */
-  --surface-2: #fbf8f1;   /* tinted card */
-  --ink: #1a1814;
-  --ink-2: #4a443d;
-  --muted: #9a9286;
-  --line: rgba(26, 24, 20, 0.07);
-  --line-strong: rgba(26, 24, 20, 0.12);
+  /* === Modern SaaS dark base === */
+  --bg: #06061a;
+  --bg-2: #0a0a26;
+  --bg-3: #0e0e30;
 
-  /* Specialty gradient tokens (soft, low-chroma pastels) */
-  --se-from: #ffe9d8;
-  --se-to:   #ffc098;
-  --se-deep: #b73e10;
-  --se-soft: #fde7d7;
+  /* Glass surfaces */
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-2: rgba(255, 255, 255, 0.06);
+  --glass-strong: rgba(255, 255, 255, 0.09);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-strong: rgba(255, 255, 255, 0.16);
 
-  --cs-from: #ece8ff;
-  --cs-to:   #c5bbff;
-  --cs-deep: #4f3bc9;
-  --cs-soft: #e2dffb;
+  /* Ink (light on dark) */
+  --ink: #ffffff;
+  --ink-2: #d6d6e6;
+  --ink-3: #a8a8c0;
+  --muted: #7a7a96;
+  --line: rgba(255, 255, 255, 0.06);
 
-  --ce-from: #e3f1e7;
-  --ce-to:   #b1d8bd;
-  --ce-deep: #2f7349;
-  --ce-soft: #dcefdf;
+  /* Aurora orb tints */
+  --orb-magenta: #ff3d8a;
+  --orb-purple:  #7c5cff;
+  --orb-cyan:    #38d4ff;
+  --orb-emerald: #2ee0a1;
+  --orb-amber:   #ffb84d;
+
+  /* Specialty gradient identities — vibrant for dark theme */
+  --se-from: #ff5e8a;
+  --se-mid:  #ff8b5a;
+  --se-to:   #ffb84d;
+  --se-glow: rgba(255, 94, 138, 0.4);
+
+  --cs-from: #7c5cff;
+  --cs-mid:  #5b9eff;
+  --cs-to:   #38d4ff;
+  --cs-glow: rgba(124, 92, 255, 0.4);
+
+  --ce-from: #2ee0a1;
+  --ce-mid:  #36c8c8;
+  --ce-to:   #38d4ff;
+  --ce-glow: rgba(46, 224, 161, 0.4);
 
   --accent: var(--ink);
-  --accent-soft: var(--bg-2);
-
-  /* Decorative orb tints */
-  --orb-peach:   rgba(255, 200, 165, 0.55);
-  --orb-laven:   rgba(210, 200, 255, 0.45);
-  --orb-mint:    rgba(180, 220, 195, 0.45);
-  --orb-cream:   rgba(255, 235, 200, 0.35);
 
   /* Type system */
-  --font-display: 'Instrument Serif', 'Times New Roman', serif;
+  --font-display: 'Bricolage Grotesque', 'Times New Roman', serif;
   --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  /* Type scale */
   --step--2: clamp(0.7rem, 0.66rem + 0.1vw, 0.76rem);
   --step--1: clamp(0.78rem, 0.74rem + 0.15vw, 0.86rem);
   --step-0:  clamp(0.94rem, 0.9rem + 0.2vw, 1.05rem);
@@ -48,30 +55,31 @@
   --step-2:  clamp(1.4rem, 1.28rem + 0.6vw, 1.7rem);
   --step-3:  clamp(1.85rem, 1.55rem + 1.4vw, 2.6rem);
   --step-4:  clamp(2.6rem, 2rem + 3vw, 4.4rem);
-  --step-5:  clamp(3.4rem, 2.4rem + 5vw, 7rem);
+  --step-5:  clamp(3.4rem, 2.4rem + 5vw, 6.5rem);
 
-  /* Bento + radii */
   --r-xs: 8px;
   --r-sm: 12px;
   --r-md: 18px;
   --r-lg: 24px;
   --r-xl: 32px;
-  --bento-gap: clamp(12px, 1.5vw, 20px);
+  --bento-gap: clamp(12px, 1.4vw, 18px);
 
-  /* Shadows */
-  --shadow-card: 0 1px 0 rgba(26, 24, 20, 0.02),
-                 0 6px 24px -16px rgba(26, 24, 20, 0.08);
-  --shadow-lift: 0 4px 0 rgba(26, 24, 20, 0.02),
-                 0 24px 48px -24px rgba(26, 24, 20, 0.18);
+  --shadow-glass:
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 24px 48px -24px rgba(0, 0, 0, 0.55),
+    0 0 64px -16px rgba(124, 92, 255, 0.12);
+  --shadow-lift:
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 32px 64px -24px rgba(0, 0, 0, 0.7),
+    0 0 100px -16px rgba(124, 92, 255, 0.25);
 
-  /* Motion */
   --ease: cubic-bezier(0.32, 0.72, 0.24, 1);
   --ease-spring: cubic-bezier(0.16, 1.1, 0.3, 1);
   --dur-fast: 180ms;
   --dur: 320ms;
   --dur-slow: 600ms;
 
-  color-scheme: light;
+  color-scheme: dark;
   color: var(--ink);
   background: var(--bg);
 
@@ -85,17 +93,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
 
 body {
   min-height: 100svh;
@@ -104,43 +103,41 @@ body {
   background: var(--bg);
 }
 
-/* Soft mesh gradient — pastel orbs that drift behind everything */
+/* === Aurora background — large blurred color orbs === */
 body::before {
   content: '';
   position: fixed;
-  inset: -10%;
+  inset: -20%;
   z-index: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(40% 35% at 12% 8%, var(--orb-peach), transparent 70%),
-    radial-gradient(38% 32% at 88% 18%, var(--orb-laven), transparent 70%),
-    radial-gradient(45% 40% at 78% 92%, var(--orb-mint), transparent 70%),
-    radial-gradient(38% 35% at 18% 86%, var(--orb-cream), transparent 70%);
-  filter: blur(20px) saturate(0.95);
-  animation: drift 24s var(--ease) infinite alternate;
+    radial-gradient(38% 32% at 14% 10%, rgba(255, 61, 138, 0.32), transparent 70%),
+    radial-gradient(35% 30% at 86% 14%, rgba(56, 212, 255, 0.28), transparent 70%),
+    radial-gradient(40% 35% at 78% 88%, rgba(124, 92, 255, 0.32), transparent 70%),
+    radial-gradient(36% 32% at 18% 84%, rgba(46, 224, 161, 0.22), transparent 70%);
+  filter: blur(60px) saturate(140%);
+  animation: aurora 28s var(--ease) infinite alternate;
 }
 
-@keyframes drift {
-  0%   { transform: translate3d(0, 0, 0) scale(1);   }
-  50%  { transform: translate3d(-2%, 1%, 0) scale(1.03); }
-  100% { transform: translate3d(2%, -1%, 0) scale(1.01); }
+@keyframes aurora {
+  0%   { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50%  { transform: translate3d(-3%, 2%, 0) scale(1.08) rotate(8deg); }
+  100% { transform: translate3d(3%, -2%, 0) scale(1.04) rotate(-4deg); }
 }
 
-/* Fine grain overlay for texture */
+/* Star noise + scanline */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: radial-gradient(
-    circle,
-    rgba(26, 24, 20, 0.03) 1px,
-    transparent 1px
-  );
-  background-size: 18px 18px;
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  background:
+    radial-gradient(circle at 12% 20%, rgba(255,255,255,0.4) 0.5px, transparent 1px) 0 0/180px 180px,
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.35) 0.5px, transparent 1px) 0 0/240px 240px,
+    radial-gradient(circle at 30% 80%, rgba(255,255,255,0.3) 0.5px, transparent 1px) 0 0/210px 210px;
   opacity: 0.6;
+  mix-blend-mode: screen;
 }
 
 #root {
@@ -153,35 +150,51 @@ body::after {
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 500;
   color: var(--ink);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   margin: 0;
   line-height: 1;
+  font-variation-settings: 'opsz' 96;
 }
 
 h1 { font-size: var(--step-5); }
-h2 { font-size: var(--step-3); letter-spacing: -0.018em; }
-h3 { font-size: var(--step-2); letter-spacing: -0.015em; }
+h2 { font-size: var(--step-3); letter-spacing: -0.02em; }
+h3 { font-size: var(--step-2); letter-spacing: -0.018em; }
 
 p { margin: 0; }
 button { font: inherit; cursor: pointer; }
 a { color: inherit; }
 
-::selection { background: var(--ink); color: var(--bg); }
+::selection { background: var(--orb-purple); color: var(--ink); }
 
-/* === Reusable utilities === */
+/* === Utilities === */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: var(--step--1);
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: var(--muted);
+  color: var(--ink-3);
   font-weight: 500;
 }
 
 .italic {
   font-style: italic;
+  font-variation-settings: 'opsz' 96, 'wght' 450;
+}
+
+.gradient-text {
+  background: linear-gradient(105deg, var(--orb-magenta), var(--orb-purple) 50%, var(--orb-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% 100%;
+  animation: gradient-shift 12s var(--ease) infinite alternate;
+}
+
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
 /* === Bento grid === */
@@ -194,30 +207,36 @@ a { color: inherit; }
 
 .cell {
   position: relative;
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--glass);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid var(--glass-border);
   border-radius: var(--r-lg);
   padding: clamp(20px, 2.4vw, 32px);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-glass);
   overflow: hidden;
   isolation: isolate;
   transition:
-    transform var(--dur) var(--ease),
+    transform var(--dur) var(--ease-spring),
     box-shadow var(--dur) var(--ease),
-    border-color var(--dur) var(--ease);
+    border-color var(--dur) var(--ease),
+    background var(--dur) var(--ease);
 }
 
-.cell--soft {
-  background: var(--surface-2);
+.cell--strong {
+  background: var(--glass-2);
+  border-color: var(--glass-border-strong);
 }
 
-.cell--ink {
-  background: var(--ink);
-  color: var(--bg);
-  border-color: var(--ink);
+.cell--bare {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
 }
 
-/* Bento spans (mobile-first: every cell is full width by default) */
 .cell--c1 { grid-column: span 6; }
 .cell--c2 { grid-column: span 6; }
 .cell--c3 { grid-column: span 6; }
@@ -239,56 +258,74 @@ a { color: inherit; }
   .cell--c6 { grid-column: span 6; }
 }
 
-.cell--r2 {
-  grid-row: span 1;
-}
+.cell--r2 { grid-row: span 1; }
 @media (min-width: 1024px) {
   .cell--r2 { grid-row: span 2; }
 }
 
-/* === Universal soft buttons === */
+/* === Buttons === */
 .btn {
   appearance: none;
   border: none;
-  background: var(--ink);
+  background: linear-gradient(135deg, var(--ink) 0%, #e0e0f0 100%);
   color: var(--bg);
   font-family: var(--font-sans);
-  font-weight: 500;
+  font-weight: 600;
   font-size: var(--step-0);
-  padding: 16px 26px;
+  padding: 16px 28px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
   gap: 12px;
   transition:
-    background var(--dur) var(--ease),
     transform var(--dur) var(--ease-spring),
-    box-shadow var(--dur) var(--ease);
+    box-shadow var(--dur) var(--ease),
+    filter var(--dur) var(--ease);
   position: relative;
   overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 8px 24px -8px rgba(255, 255, 255, 0.25),
+    0 0 60px -10px rgba(124, 92, 255, 0.5);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 800ms var(--ease);
+  pointer-events: none;
 }
 
 .btn:hover {
-  background: #2a241e;
-  transform: translateY(-1px);
-  box-shadow: 0 14px 28px -16px rgba(26, 24, 20, 0.4);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    0 12px 32px -8px rgba(255, 255, 255, 0.3),
+    0 0 80px -10px rgba(124, 92, 255, 0.7);
 }
 
+.btn:hover::before { transform: translateX(100%); }
 .btn:active { transform: translateY(0); }
 .btn:focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--orb-purple);
   outline-offset: 4px;
 }
 
 .btn--ghost {
-  background: var(--surface);
+  background: var(--glass-2);
+  backdrop-filter: blur(20px);
   color: var(--ink);
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--glass-border-strong);
+  box-shadow: none;
 }
 
 .btn--ghost:hover {
-  background: var(--surface-2);
-  border-color: var(--ink);
+  background: var(--glass-strong);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 40px -8px rgba(124, 92, 255, 0.3);
 }
 
 .btn__arrow {
@@ -299,9 +336,7 @@ a { color: inherit; }
 .btn:hover .btn__arrow { transform: translateX(4px); }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
