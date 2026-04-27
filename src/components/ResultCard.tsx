@@ -123,7 +123,7 @@ export function ResultCard({
         style={{ animationDelay: '160ms' }}
       >
         <div className="r__link-bg" aria-hidden="true" />
-        <p className="eyebrow r__link-kicker">Сторінка кафедри</p>
+        <p className="eyebrow r__link-kicker">Сторінка відділення</p>
         <p className="r__link-name italic">{primary.departmentName}</p>
         <span className="r__link-foot">
           <span>kisit.kneu.edu.ua</span>
@@ -208,7 +208,7 @@ export function ResultCard({
                 {i < tieSpecialties.length - 1 ? ', ' : ''}
               </span>
             ))}
-            . Глянь на обидві кафедри та обирай те, що ближче.
+            . Глянь на обидва відділення та обирай те, що ближче.
           </p>
           <ul className="r__tie-links">
             {tieSpecialties.map((s) => (

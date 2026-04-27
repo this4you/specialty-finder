@@ -12,7 +12,7 @@ export function AppShell({ children }: Props) {
         <div className="shell__brand">
           <span className="shell__mark" aria-hidden="true" />
           <span className="shell__brand-text">
-            <span className="shell__brand-line">Career Compass · КНЕУ КІСіТ</span>
+            <span className="shell__brand-line">Career Compass · КНЕУ ФКІСіТ</span>
             <span className="shell__brand-sub">обери свій IT-шлях</span>
           </span>
         </div>
