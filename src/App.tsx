@@ -4,6 +4,7 @@ import { WelcomeScreen } from './components/WelcomeScreen';
 import { QuestionCard } from './components/QuestionCard';
 import { ResultCard } from './components/ResultCard';
 import { HistoryScreen } from './components/HistoryScreen';
+import { QrScreen } from './components/QrScreen';
 import { QUESTIONS } from './data/questions';
 import { calculateResult } from './logic/calculateResult';
 import {
@@ -23,6 +24,8 @@ function App() {
   const goWelcome = () => setScreen({ kind: 'welcome' });
 
   const goHistory = () => setScreen({ kind: 'history' });
+
+  const goQr = () => setScreen({ kind: 'qrcode' });
 
   const handleSelect = (optionId: string) => {
     if (screen.kind !== 'questionnaire') return;
@@ -89,6 +92,7 @@ function App() {
           onStart={startNew}
           completedCount={tests.length}
           onOpenHistory={goHistory}
+          onOpenQr={goQr}
         />
       )}
 
@@ -122,6 +126,8 @@ function App() {
           onClear={handleClearHistory}
         />
       )}
+
+      {screen.kind === 'qrcode' && <QrScreen onBack={goWelcome} />}
     </AppShell>
   );
 }

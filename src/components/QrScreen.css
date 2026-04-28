@@ -1,0 +1,195 @@
+.qr {
+  flex: 1;
+  align-content: start;
+}
+
+.qr .cell {
+  animation: cell-in 800ms var(--ease-spring) both;
+}
+
+/* === Hero === */
+.qr__hero {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2vw, 28px);
+  padding: clamp(28px, 3vw, 44px);
+  min-height: clamp(360px, 50vh, 480px);
+  position: relative;
+  justify-content: space-between;
+}
+
+.qr__hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(46, 208, 154, 0.14), transparent 60%),
+    radial-gradient(120% 80% at 0% 100%, rgba(124, 92, 255, 0.12), transparent 70%);
+}
+
+.qr__hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.qr__back {
+  appearance: none;
+  background: var(--glass-2);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.qr__back:hover {
+  background: var(--glass-strong);
+  transform: translateX(-2px);
+}
+
+.qr__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-3);
+}
+
+.qr__tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--orb-emerald);
+  box-shadow: 0 0 12px var(--orb-emerald);
+  animation: dot-pulse 2.4s var(--ease) infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1;   }
+  50%      { opacity: 0.4; }
+}
+
+.qr__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 1.6rem + 4vw, 5rem);
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  color: var(--ink);
+  font-weight: 500;
+  font-variation-settings: 'opsz' 96, 'wght' 500;
+}
+
+.qr__title .gradient-text {
+  font-style: italic;
+  font-variation-settings: 'opsz' 96, 'wght' 450;
+}
+
+.qr__lede {
+  font-family: var(--font-sans);
+  font-size: var(--step-1);
+  color: var(--ink-2);
+  font-weight: 350;
+  max-width: 56ch;
+}
+
+/* === URL block === */
+.qr__url {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+  padding: 14px 18px;
+  background: var(--glass-2);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: var(--r-md);
+}
+
+.qr__url-label {
+  color: var(--ink-3);
+}
+
+.qr__url-text {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--ink);
+  word-break: break-all;
+  letter-spacing: 0.01em;
+}
+
+.qr__copy {
+  align-self: flex-start;
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--orb-purple);
+  padding: 4px 0;
+  transition: color var(--dur) var(--ease);
+}
+
+.qr__copy:hover {
+  color: var(--orb-magenta);
+}
+
+/* === QR card === */
+.qr__card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 2.6vw, 36px);
+  min-height: clamp(360px, 50vh, 480px);
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(46, 208, 154, 0.08), transparent 70%),
+    var(--glass-strong);
+}
+
+.qr__frame {
+  position: relative;
+  background: #ffffff;
+  border-radius: var(--r-lg);
+  padding: clamp(14px, 1.6vw, 22px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 20px 40px -24px rgba(20, 17, 13, 0.35);
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  border-radius: var(--r-sm);
+}
+
+.qr__hint {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--ink-3);
+  font-size: var(--step-0);
+  font-variation-settings: 'opsz' 14, 'wght' 400;
+}

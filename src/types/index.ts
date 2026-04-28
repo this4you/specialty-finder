@@ -52,4 +52,5 @@ export type Screen =
       testId: string;
       origin: 'fresh' | 'history';
     }
-  | { kind: 'history' };
+  | { kind: 'history' }
+  | { kind: 'qrcode' };

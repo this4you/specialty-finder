@@ -7,12 +7,14 @@ interface Props {
   onStart: () => void;
   completedCount: number;
   onOpenHistory: () => void;
+  onOpenQr: () => void;
 }
 
 export function WelcomeScreen({
   onStart,
   completedCount,
   onOpenHistory,
+  onOpenQr,
 }: Props) {
   return (
     <section className="bento welcome">
@@ -62,6 +64,15 @@ export function WelcomeScreen({
                 <span aria-hidden="true">→</span>
               </button>
             )}
+            <button
+              type="button"
+              className="hero__history hero__qr"
+              onClick={onOpenQr}
+            >
+              <span className="hero__qr-icon" aria-hidden="true" />
+              <span>QR-код для друга</span>
+              <span aria-hidden="true">→</span>
+            </button>
           </div>
         </div>
 

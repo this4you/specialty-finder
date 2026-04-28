@@ -146,6 +146,17 @@
   font-weight: 500;
 }
 
+.hero__qr-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background:
+    linear-gradient(var(--ink), var(--ink)) top left    / 6px 6px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) top right   / 6px 6px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) bottom left / 6px 6px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) center      / 3px 3px no-repeat;
+}
+
 .hero__compass {
   position: relative;
   z-index: 1;
